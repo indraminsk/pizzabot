@@ -38,20 +38,22 @@ func TestSortHousesPerLane(t *testing.T) {
 		lanes:  5,
 		houses: 5,
 		receivers: ReceiversLHFormatSchemeType{
+			2: HousesListType{2, 3},
 			4: HousesListType{4, 2},
 			1: HousesListType{3, 1},
 		},
-		laneList: nil,
+		laneList: LanesListType{1, 2, 4},
 	}
 
 	expected := DistrictSchemeType{
 		lanes:  5,
 		houses: 5,
 		receivers: ReceiversLHFormatSchemeType{
+			2: HousesListType{3, 2},
 			4: HousesListType{2, 4},
 			1: HousesListType{1, 3},
 		},
-		laneList: nil,
+		laneList: LanesListType{1, 2, 4},
 	}
 
 	sortHousesPerLane(&input)

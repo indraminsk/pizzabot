@@ -38,11 +38,24 @@ func buildLaneList(markupData *DistrictSchemeType) {
 
 // sortHousesPerLane sorts houses' numbers per lane
 func sortHousesPerLane(markupData *DistrictSchemeType) {
-	for lane, houses := range markupData.receivers {
-		sort.Slice(houses, func(i, j int) bool {
-			return houses[i] < houses[j]
-		})
+	var (
+		isNeedRevers bool
+	)
 
+	for _, lane := range markupData.laneList {
+		houses := markupData.receivers[lane]
+
+		if isNeedRevers {
+			sort.Slice(houses, func(i, j int) bool {
+				return houses[i] > houses[j]
+			})
+		} else {
+			sort.Slice(houses, func(i, j int) bool {
+				return houses[i] < houses[j]
+			})
+		}
+
+		isNeedRevers = !isNeedRevers
 		markupData.receivers[lane] = houses
 	}
 }
